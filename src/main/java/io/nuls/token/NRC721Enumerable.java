@@ -26,6 +26,7 @@ package io.nuls.token;
 import io.nuls.contract.sdk.Address;
 import io.nuls.contract.sdk.Contract;
 import io.nuls.contract.sdk.Msg;
+import io.nuls.contract.sdk.annotation.Required;
 import io.nuls.token.base.NRC721EnumerableBase;
 
 import java.math.BigInteger;
@@ -38,13 +39,13 @@ import static io.nuls.contract.sdk.Utils.require;
  */
 public class NRC721Enumerable extends NRC721EnumerableBase implements Contract {
 
-    public boolean mint(Address to, BigInteger tokenId) {
+    public boolean mint(@Required Address to, @Required BigInteger tokenId) {
         onlyMinter();
         super.mintBase(to, tokenId);
         return true;
     }
 
-    public void burn(Address owner, BigInteger tokenId) {
+    public void burn(@Required Address owner, @Required BigInteger tokenId) {
         require(isApprovedOrOwner(Msg.sender(), tokenId), "NRC721: transfer caller is not owner nor approved");
         super.burnBase(owner, tokenId);
     }
